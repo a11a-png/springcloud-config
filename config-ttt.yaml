@@ -1,4 +1,3 @@
-```yml
 #配置 数据库连接
 spring:
   datasource:
@@ -38,6 +37,4 @@ druid:
         
 config:
   name: "xiaowuwuwuwuwuwuwu abbb"
-        
-```
 
