@@ -1,4 +1,3 @@
-```yml
 #配置 数据库连接
 spring:
   datasource:
@@ -37,7 +36,5 @@ druid:
         drop-table-allow: false
         
 config:
-  name: "xiaowuwuwuwuwuwuwu abbb"
-        
-```
+  name: "xiaowuwuwuwuwuwuwu abbb"    
 
