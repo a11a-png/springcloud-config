@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>SpringMvc</servlet-name>
+        <!--核心-->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--Servlet的初始参数 SpringMVC中用于指定要加载的配置文件如果不知道，默认加载/WEB-INF/springMVC-servlet.xml-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <!-- classpath默认指向src目录  指定目录文件-->
+            <param-value>classpath:springmvc-servlet.xml</param-value>
+        </init-param>
+        <!--在JavaWeb项目启动时加载-->
+        <!-- 加载顺序为第一位-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SpringMvc</servlet-name>
+        <!--匹配所有路径请求-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!--第一种配置：<url-pattern>*.do</url-pattern>
+            古老的写法,还可以写*.action等等，
+            表示以.do结尾的或者以.action结尾的URL都由前端控制器DispatcherServlet来解析 ，
+            其余的匹配不上的静态资源由web.xml下的defaultservlet处理。
+
+             第二种配置：
+             <url-pattern>/</url-pattern>
+             推荐写法,这个路径可以匹配所有的请求，匹配到的url都由DispatcherServlet来解析，
+             其实是覆盖掉呢web.xml下的default,
+             需要对静态资源单独处理，一般使用<mvc:resources location="/js/" mapping="/js/**"/>
+             这种配置还能实现restful
+
+             第三种配置：【不要使用】错误配置：/*,
+             就会匹配到所有类型的url，包括路径型的，有各种后缀的等等, 注意这里是不能这样配置的，
+             因为如果这样写，最后转发到 jsp 页面的时候，仍然会由DispatcherServlet进行解析， 而
+             这时候会找不到对应的Handler，从而报404！！！
+             -->
+    <!--  配置SpringMVC提供的字符编码过滤器 设置字符编码 解决中文乱码问题    -->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--默认页面-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+      <!--配置特殊异常状态的页面-->
+      <error-page>
+          <error-code>404</error-code>
+          <location>/ErrorPage/404.jsp</location>
+      </error-page>
+    <!--配置特殊异常状态的页面-->
+       <error-page>
+           <error-code>500</error-code>
+           <location>/ErrorPage/500.jsp</location>
+       </error-page>
+
+</web-app>
