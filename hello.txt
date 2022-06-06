@@ -16,3 +16,5 @@ ccccccc
 Tom Peter My
 See X-Man
 hot-fix test
+
+git remote add origin https://github.com/a11a-png/Boke.git
